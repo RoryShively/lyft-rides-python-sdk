@@ -11,12 +11,12 @@ with open('README.rst') as f:
     readme = f.read()
 
 setup(
-    name='lyft_rides',
+    name='lyft_rides_hero',
     version='0.1.0',
     packages=find_packages(),
     description='Unofficial Lyft Rides API Python SDK',
     long_description=readme,
-    url='https://github.com/gautammishra/lyft-rides-python-sdk',
+    url='https://github.com/RoryShively/lyft-rides-python-sdk',
     license='MIT',
     author='Gautam Mishra',
     author_email='gautam.mishra@hotmail.com',
