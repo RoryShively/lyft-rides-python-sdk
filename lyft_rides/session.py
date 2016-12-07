@@ -91,7 +91,7 @@ class OAuth2Credential(object):
         """
         self.client_id = client_id
         self.access_token = access_token
-        self.expires_in_seconds = self._now() + int(expires_in_seconds)
+        self.expires_in_seconds = expires_in_seconds
         self.scopes = scopes
         self.grant_type = grant_type
         self.client_secret = client_secret
@@ -138,7 +138,7 @@ class OAuth2Credential(object):
             client_id=client_id,
             client_secret=client_secret,
             access_token=response.get('access_token'),
-            expires_in_seconds=response.get('expires_in'),
+            expires_in_seconds=int(time()) + int(response.get('expires_in')),
             scopes=scopes_set,
             grant_type=grant_type,
             refresh_token=response.get('refresh_token', None),
@@ -151,7 +151,9 @@ class OAuth2Credential(object):
                 True if access_token expires within threshold
         """
         expires_in_seconds = self.expires_in_seconds - self._now()
-        return expires_in_seconds <= 0
+
+        # 10 second padding for network latency
+        return expires_in_seconds <= 10
 
     def _now(self):
         return int(time())
